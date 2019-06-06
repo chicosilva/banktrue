@@ -1,0 +1,9 @@
+local_settings.py
+django.wsgi
+*.py[cod]
+core/media/*
+core/static/CACHE/*
+.env/*
+.vscode/*
+.pylintrc
+.DS_Store

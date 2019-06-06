@@ -1,0 +1,26 @@
+{% extends "website.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% load thumbnail %} 
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <h2 class="text-center">Aproveite!</h2>
+
+    <div class="row">
+        
+        {% for categoria in categorias_list %}
+            <div class="col-md-3">
+                <a href="{% url "core:produtos" categoria.slug %}" title="{{categoria}}">
+                    {% thumbnail categoria.imagem "350x350" format="PNG" as img %}
+                        <img src="{{ img.url }}" class="img-responsive">
+                    {% endthumbnail %}
+                </a>
+            </div>
+        {% endfor %}
+     
+    </div>
+</div>
+{% endblock%}

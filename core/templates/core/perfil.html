@@ -1,0 +1,950 @@
+{% load thumbnail %}
+{% load static %}
+{% load widget_tweaks %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{lojista.apelido}} - {{lojista.slogan}} </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://via.placeholder.com/30x30">
+
+    <!-- Template CSS Files -->
+
+    <link rel="stylesheet" type="text/css" href="{% static "front/css/bootstrap.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/css/font-awesome.min.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/css/magnific-popup.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/css/style.css" %}?update=855" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/css/skins/" %}{{lojista.cor}}.css?s=1" />
+
+    <!-- Revolution Slider CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static "front/js/plugins/revolution/css/settings.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/js/plugins/revolution/css/layers.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "front/js/plugins/revolution/css/navigation.css" %}" />
+
+    <!-- Template JS Files -->
+    <script type="text/javascript" src="{% static "front/js/modernizr.js" %}"></script>
+
+    <style>
+        @media all and (orientation:portrait) {
+			.col-md-12 .largura_post { max-width: 80%; }
+		}
+
+        {% if lojista.imagem_fundo %}
+            .projectmanager, .testimonials, .newsletter, .videopromotion, .contactform {
+                background-image: url("{{lojista.imagem_fundo}}");
+            }
+        {% endif %}
+        .col-centered{
+            float: none;
+            margin: 0 auto;
+        }
+        .img_time { text-align: center; }
+        .novos_contatos { margin: 30px 0; }
+        .img_time { text-align: center; }
+			.col-md-12 .largura_post { max-width: 25%; }
+			.col-md-6 .largura_post { max-width: 50%; }
+			.col-md-4 .largura_post { max-width: 80%; }
+			.bx-wrapper { margin: 20px 0 !important; }
+    </style>
+
+</head>
+
+<body class="reversed-skew-">
+    
+    <!-- Page Wrapper Starts -->
+    <div class="wrapper">
+        <!-- Header Starts -->
+        
+        <header id="header" class="header">
+            <div class="header-inner">
+                <!-- Navbar Starts -->
+                <nav class="navbar navbar-expand-lg p-0" id="singlepage-nav">
+					
+                    <!-- Logo Starts -->
+                    <div class="logo" style="display:none">
+                        <a data-toggle="collapse" data-target=".navbar-collapse.show" class="navbar-brand link-menu scroll-to-target" href="#mainslider">
+                            
+                            {% if lojista.logo %}
+                                <img id="logo-light" class="logo-light" src="{{lojista.logo}}" alt="logo-light" />
+                                <img id="logo-dark" class="logo-dark" src="{{lojista.logo}}" alt="logo-dark" />
+                            {% endif %}
+                            
+                        </a>
+                    </div>
+					<!-- Logo Ends -->
+
+					<!-- Hamburger Icon Starts -->
+                    <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span id="icon-toggler">
+						  <span></span>
+						  <span></span>
+						  <span></span>
+						  <span></span>
+						</span>
+					</button>
+					<!-- Hamburger Icon Ends -->
+					<!-- Navigation Menu Starts -->
+                    <div class="collapse navbar-collapse nav-menu" id="navbarSupportedContent">
+                        <ul class="nav-menu-inner ml-auto">
+                            <li><a data-toggle="collapse" data-target=".navbar-collapse.show" class="link-menu" href="#mainslider"><i class="fa fa-home"></i> home</a></li>
+                            <li><a data-toggle="collapse" data-target=".navbar-collapse.show" class="link-menu" href="#about"><i class="fa fa-user"></i> Sobre nós</a></li>
+                            
+                            {% if portfolios %}
+                                <li><a data-toggle="collapse" data-target=".navbar-collapse.show" class="link-menu" href="#portfolio"><i class="fa fa-image"></i> Portfólio</a></li>
+                            {% endif %}
+
+                            {% if equipes %}
+                                <li><a data-toggle="collapse" data-target=".navbar-collapse.show" class="link-menu" href="#team"><i class="fa fa-user"></i> Equipe</a></li>
+                            {% endif %}
+                            
+                            <li><a data-toggle="collapse" data-target=".navbar-collapse.show" class="link-menu" href="#contact"><i class="fa fa-envelope"></i> Contato</a></li>
+                        </ul>
+                    </div>
+					<!-- Navigation Menu Ends -->
+                </nav>
+                <!-- Navbar Ends -->
+            </div>
+        </header>
+
+        {% if banners %}
+            <!-- Main Slider Section Starts -->
+            <section class="mainslider" id="mainslider">
+                <article class="content">
+                    <div id="rev_slider_6_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.0.7">
+                        <ul>
+                            {% for banner in banners %}
+                                <li data-index="rs-{{forloop.counter}}" data-transition="fade" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="{{banner.imagem}}" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="500" data-fsslotamount="3" data-saveperformance="off" data-title="WE ARE SALIMO" data-param1="May 24, 2015" data-description="">
+                                    <img src="{{banner.imagem}}" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                    <div class="tp-caption NotGeneric-Title tp-resizeme" data-x="['left','left','left','left']" data-hoffset="['50','50','50','50']" data-y="['top','top','top','top']" data-voffset="['250','250','250','250']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="opacity:0;s:500;e:Power2.easeInOut;" data-transform_out="opacity:0;s:1000;e:Power2.easeIn;s:1000;e:Power2.easeIn;" data-start="500" data-splitin="chars" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-elementdelay="0.01" style="z-index: 5; white-space: nowrap; font-size: 29px; line-height: 40px;">
+                                        {% if banner.titulo %}
+                                            {{banner.titulo}}
+                                        {% endif %}
+                                    </div>
+                                    <div class="tp-caption Photography-Textblock tp-resizeme" data-x="['left','left','left','left']" data-hoffset="['50','50','50','50']" data-y="['top','top','top','top']" data-voffset="['320','320','320','320']" data-width="350" data-height="150" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="opacity:0;s:500;e:Power2.easeInOut;" data-transform_out="opacity:0;s:1000;e:Power2.easeIn;s:1000;e:Power2.easeIn;" data-start="500" data-splitin="chars" data-splitout="none" data-basealign="slide" data-responsive_offset="on" data-elementdelay="0.03" style="z-index: 7; min-width: 350px; max-width: 350px; max-width: 150px; max-width: 150px; white-space: normal; font-size: 18px; line-height: 25px;">
+                                        {% if banner.subtitulo %}
+                                            {{banner.subtitulo}}
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+                    </div>
+                    <script type="text/javascript"></script>
+                </article>
+            </section>
+            <!-- Main Slider Section Ends -->
+        {% endif %}
+    
+        <!-- Novos contatos início -->
+			<section id="about" class="about">
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 novos_contatos">
+							<h3 class="title-about"> <strong>{{lojista.label_contato}}</strong></h3>
+							<hr>
+							<p>Temos prazer em atender você.</p>
+							<a class="custom-button scroll-to-target" href="https://api.whatsapp.com/send?phone=55{{redes.whatsapp_int}}&amp;text=Olá">{{redes.whatsapp_int}}</a>
+						</div>
+						<div class="col-md-6 novos_contatos">
+							<h3 class="title-about">NOS <strong>ENCONTRE</strong></h3>
+							<hr>
+							<p>{{lojista.endereco}},  {{lojista.numero}}, {{lojista.bairro}}. {{lojista.cidade}}</p>
+							<a class="custom-button scroll-to-target" href="https://maps.google.com/maps?q={{lojista.endereco}}%2C%20{{lojista.numero}}%2C%20{{lojista.cidade}}%20-%20{{lojista.estado}}" target="blank">Google Maps</a>
+						</div>
+					</div>
+				</div>
+
+			</section>
+		<!-- Novos contatos final -->
+
+        <!-- Project Manager Section Starts -->
+        <section class="projectmanager" id="projectmanager">
+            <!-- Section Overlay Starts -->
+            <div class="section-overlay">
+                <!-- Container Starts -->
+                <div class="container">
+                    <div class="row">
+
+                        {% if lojista.logo %}
+                            <div class="col-md-12 col-lg-12 col-xl-5">
+                                <img class="img-fluid projectmanagerpicture" src="{{lojista.logo}}" alt="project manager">
+                            </div>
+                        {% endif %}
+
+                        <!-- Details Starts -->
+                        {% if historia.pontos_fortes %}
+
+                            {% if not lojista.logo %}
+                                <div class="col-md-12 col-lg-12 col-xl-11 text-center offset-xl-1">
+                            {% else %}
+                                <div class="col-md-12 col-lg-12 col-xl-6 offset-xl-1">
+                            {% endif %}
+                                
+                                <h1>Nossa História</h1>
+
+                                <blockquote>
+                                    " {{historia.reconhecimento}} "
+                                </blockquote>
+
+                                <p>
+                                    {{historia.pontos_fortes}}
+                                </p>
+                                
+                                <!-- Social Media Starts -->
+                                <div class="social-icons">
+                                    <ul class="social">
+                                        
+                                        {% if redes.twitter %}
+                                            <li> 
+                                                <a class="twitter" href="https://twitter.com/{{redes.twitter}}" title="twitter" target="blank"></a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% if redes.facebook %}
+                                            <li>
+                                                <a class="facebook" href="https://www.facebook.com/{{redes.facebook}}" title="facebook" target="blank"></a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% if redes.skype %}
+                                            <li>
+                                                <a href="skype:{{redes.skype}}?call" class="skype" title="skype"></a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% if redes.instagram %}
+                                            <li>
+                                                <a class="instagram" href="https://www.instagram.com/{{redes.instagram}}" title="instagram" target="blank"> </a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% if redes.linkedin %}
+                                            <li>
+                                                <a class="linkedin" href="https://www.linkedin.com/in/{{redes.linkedin}}" title="linkedin" target="blank"></a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% if redes.youtube %}
+                                            <li>
+                                                <a class="youtube" href="https://www.youtube.com/{{redes.youtube}}" title="youtube" target="blank"></a>
+                                            </li>
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+                                <!-- Social Media Ends -->
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <!-- Details Ends -->
+                </div>
+                <!-- Container Ends -->
+            </div>
+        </section>
+
+        <!-- About Section Starts -->
+        <section id="about" class="about">
+            <!-- Container Starts -->
+            <div class="container">
+                <!-- Main Heading Starts -->
+                <div class="text-center top-text">
+                    <h1 class="titulo-logista">{{lojista.apelido}}</h1>
+                    <h4>{{lojista.slogan}}</h4>
+
+                </div>
+                <!-- Main Heading Ends -->
+                <!-- Divider Starts -->
+                <div class="divider text-center">
+                    <span class="outer-line"></span>
+                    <span class="fa fa-user" aria-hidden="true"></span>
+                    <span class="outer-line"></span>
+                </div>
+                <!-- Divider Ends -->
+                
+                <!-- About Content Starts -->
+                <div class="row about-content text-center justify-content-center">
+
+                    <div class="col-sm-12 col-md-12 col-lg-5 ">
+
+                        <p>{{lojista.bemvindo}} </p>
+
+                        <ul class="nav nav-tabs justify-content-center">
+                            
+                            {% if lojista.missao %}
+                                <li><a class="active" data-toggle="tab" href="#menu1">Missão</a></li>
+                            {% endif %}
+
+                            {% if lojista.visao %}
+                                <li><a data-toggle="tab" href="#menu2">Visão</a></li>
+                            {% endif %}
+
+                            {% if lojista.valor %}
+                                <li><a data-toggle="tab" href="#menu3">Valores</a></li>
+                            {% endif %}
+
+                        </ul>
+
+                        <!-- Tabs Heading Ends -->
+                        <!-- Tabs Content Starts -->
+                        <div class="tab-content">
+                            <div id="menu1" class="tab-pane fade in active">
+                                <p>{{lojista.missao}}</p>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <p>{{lojista.visao}}</p>
+                            </div>
+                            <div id="menu3" class="tab-pane fade">
+                                <p>{{lojista.valor}}</p>
+                            </div>
+                        </div>
+                        <!-- Tabs Content Ends -->
+                        
+                    </div>
+                    
+                </div>
+                <!-- About Content Ends -->
+            </div>
+            <!-- Container Ends -->
+        </section>
+        <!-- About Section Ends -->
+        
+        {% if depoimentos %}
+            <!-- Testimonials Section Starts -->
+            <section class="testimonials">
+                <div class="section-overlay">
+                    <!-- Container Starts -->
+                    <div class="container">
+                        <!-- Main Heading Starts -->
+                        <div class="text-center top-text">
+                            <h1><span>Clientes</span> Satisfeitos</h1>
+                            <h4>Dizem que...</h4>
+                        </div>
+                        <!-- Main Heading Starts -->
+                        <!-- Blockquotes Starts -->
+                        <div id="quote-carousel" class="carousel slide" data-ride="carousel">
+                            <!-- Wrapper For Sliders Starts -->
+                            <!-- Indicators Starts -->
+                            <ol class="carousel-indicators mx-auto">
+                                {% for depoimento in depoimentos %}
+                                    <li data-target="#quote-carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active" {% endif %}></li>
+                                {% endfor %}
+                            </ol>
+                            <!-- Indicators Ends -->
+                            <div class="carousel-inner">
+                                
+                                {% for depoimento in depoimentos %}
+                                    <!-- Quote #1 Starts -->
+                                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                                        <blockquote>
+                                            
+                                            <img class="rounded-circle img-fluid" src="{{depoimento.imagem}}" alt="client">
+
+                                            <p>{{depoimento.texto}}</p>
+                                            <h5>{{depoimento.nome}}</h5>
+                                            <h6>{{depoimento.profissao}}</h6>
+                                        </blockquote>
+                                    </div>
+                                    <!-- Quote #1 Ends -->
+                                {% endfor %}
+    
+                            </div>
+                            <!-- Wrapper For Sliders Ends -->
+                        </div>
+                        <!-- Blockquotes Ends -->
+                    </div>
+                    <!-- Container Ends -->
+                </div>
+            </section>
+            <!-- Testimonials Section Ends -->
+        {% endif %}
+
+        {% if portfolios %}
+            <!-- Portfolio Section Starts -->
+            <section id="portfolio" class="portfolio">
+                <!-- Container Starts -->
+                <div class="container">
+                    <!-- Main Heading Starts -->
+                    
+                    <!-- Main Heading Starts -->
+                    <!-- Divider Starts -->
+                    
+                    <!-- Divider Ends -->
+                    <!-- Filter Wrapper Starts -->
+                    <nav>
+                        <ul class="simplefilter nav nav-pills d-block">
+                            <!-- Filter Wrapper Items Starts -->
+                            
+                            {% for categoria in categorias %}
+                                <li data-filter="{{categoria.id}}">{{categoria.nome}}</li>
+                            {% endfor %}
+                            <!-- Filter Wrapper Items Ends -->
+                        </ul>
+                    </nav>
+
+                    <!-- Filter Wrapper Ends -->
+
+                    <div>
+                        <div class="filtr-container">
+                            
+                            {% for portfolio in portfolios %}
+                                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 filtr-item" data-category="{{portfolio.categoria_id}}">
+                                    <div class="magnific-popup-gallery">
+                                        <!-- Thumbnail Starts -->
+                                        <figure class="thumbnail thumbnail__portfolio">
+                                            <a class="image-wrap" href="{{portfolio.imagem}}" data-gal="magnific-pop-up[image]" title="{{portfolio.titulo}}">
+                                            <img class="img-fluid" src="{{portfolio.imagem}}" alt="{{portfolio.nome}}" />
+                                            <span class="zoom-icon"></span>
+                                            </a>
+                                        </figure>
+                                        <!-- Thumbnail Ends -->
+                                        <!-- Caption Starts -->
+                                        <div class="caption">
+                                            <h3>{{portfolio.titulo}}</h3>
+                                            <p>{{portfolio.descricao}}</p>
+                                        </div>
+                                        <!-- Caption Ends -->
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Container Ends -->
+            </section>
+            <!-- Portfolio Section Ends -->
+        {% endif %}
+        
+        {% if equipes %}
+            <!-- Team Section Starts -->
+            <section id="team" class="team">
+                <!-- Container Starts -->
+                <div class="container">
+                    <!-- Main Heading Starts -->
+                    <div class="text-center top-text">
+                        <h1><span>Muito</span> Prazer</h1>
+                        <h4>Eu sou</h4>
+                    </div>
+                    <!-- Main Heading Ends -->
+                    <!-- Divider Starts -->
+                    <div class="divider text-center">
+                        <span class="outer-line"></span>
+                        <span class="fa fa-users" aria-hidden="true"></span>
+                        <span class="outer-line"></span>
+                    </div>
+                    <!-- Divider Ends -->
+
+                    <!--
+                        Na linha abaixo, colocar o seguinte contador na classe.
+                        Se a quantidade de fotos for:
+                            1 = col-md-12
+                            2 = col-md-6
+                            3 = col-md-4
+                            4 = col-md-3
+                            6 = col-md-2
+                            12 = col-md-1
+                    -->
+
+                    <!-- Team Members Starts -->
+                    <div class="row team-members magnific-popup-gallery">
+                        
+                        {% for equipe in equipes %}
+
+                            <!-- Team Member Starts -->
+                            {% if equipes|length == 4 %}
+                                <div class="col-md-3 img_time">
+                            {% endif %}
+
+                            {% if equipes|length == 3 %}
+                                <div class="col-md-4 img_time">
+                            {% endif %}
+
+                            {% if equipes|length == 2 %}
+                                <div class="col-md-6 img_time">
+                            {% endif %}
+
+                            {% if equipes|length == 1 %}
+                                <div class="col-md-12 img_time">
+                            {% endif %}
+
+
+                                <!-- Na linha abaixo, acrescentar a classe "largura_post". -->
+                                <div class="team-member {% if equipes|length > 1 %} largura_post {% endif %}">
+                                    <a title="Maryana Mori // Manager" href="http://via.placeholder.com/480x600" data-gal="magnific-pop-up[team]" class="team-member-img-wrap"><img src="{{equipe.imagem}}" alt="team member"></a>
+                                    <div class="team-member-caption social-icons">
+                                         <h4>{{equipe.nome}}</h4>
+                                        <p>{{equipe.funcao}}</p>
+                                        <ul class="list list-inline social">
+                                            {% if equipe.facebook %}
+                                                <li>
+                                                    <a href="https://www.facebook.com/{{equipe.facebook}}" class="fa fa-facebook"></a>
+                                                </li>
+                                            {% endif %}
+
+                                            {% if equipe.twitter %}
+                                                <li>
+                                                    <a href="https://twitter.com/{{redes.equipe}}" class="fa fa-twitter"></a>
+                                                </li>
+                                            {% endif %}
+                                            
+                                            {% if equipe.instagram %}
+                                                <li>
+                                                    <a href="https://www.instagram.com/{{equipe.instagram}}" class="fa fa-instagram"></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        {% endfor %}
+                        
+                    </div>
+                    <!-- Team Members Ends -->
+                </div>
+                <!-- Container Ends -->
+            </section>
+            <!-- Team Section Ends -->
+        {% endif %}
+         
+        <!-- Newsletter Section Starts -->
+        <section class="newsletter">
+            <div class="section-overlay">
+                <!-- Container Starts -->
+                <div class="container">
+                    <!-- Main Heading Starts -->
+                    <div class="text-center top-text">
+                        <h1><span>Fique</span> por dentro!</h1>
+                        
+                    </div>
+                    <!-- Main Heading Ends -->
+                    <div class="newsletter-content">
+                        <p class="text-center">Cadastre-se para receber novidades e promoções</p>
+                        <!-- Newsletter Form Starts -->
+                        <form class="form-inputs form-newsletter" action="{{ API_URL }}/newsletter/add/" method="post">
+
+                            <!-- Newsletter Form Input Field Starts -->
+                            <div class="col-md-12 form-group custom-form-group p-0">
+                                <span class="input custom-input">
+                                    <input name="lojista" value="{{lojista.id}}" type="hidden">
+									<input name="email" placeholder="Informe seu e-mail" class="input-field custom-input-field" type="email" />
+									<label class="input-label custom-input-label" >
+										<i class="fa fa-envelope-open-o icon icon-field"></i>
+									</label>
+								</span>
+                            </div>
+                            <!-- Newsletter Form Input Field Ends -->
+                            <!-- Newsletter Form Submit Button Starts -->
+                            <button id="submit" name="submit" type="submit" class="custom-button" title="Send">Cadastrar</button>
+                            <div class="col-sm-12 text-center output_message_holder d-none">
+                                <p class="output_message"></p>
+                            </div>
+                            <!-- Newsletter Form Submit Button Ends -->
+                        </form>
+                        <!-- Newsletter Form Ends -->
+                    </div>
+                </div>
+                <!-- Container Ends -->
+            </div>
+        </section>
+        <!-- Newsletter Section Ends -->
+        
+        {% if lojista.video %}
+            <!-- Video Section Starts -->
+            <section class="videopromotion">
+                <div class="section-overlay">
+                    <!-- Container Starts -->
+                    <div class="container">
+                        <!-- Main Heading Starts -->
+                        
+                        <!-- Main Heading Ends -->
+                        <div class="video-content">
+                        
+                            <!-- Video Play Starts -->
+                            <div class="magnific-popup-gallery">
+                                <div class="btn-wrapper text-center"><a class="image-wrap mfp-youtube" href="{{lojista.video}}"></a></div>
+                            </div>
+                            <!-- Video Play Ends -->
+                        </div>
+                    </div>
+                    <!-- Container Ends -->
+                </div>
+            </section>
+            <!-- Video Section Ends -->
+        {% endif %}
+
+        <!-- Contact Section Starts -->
+        <section id="contact" class="contact">
+            
+            {% if lojista.endereco %}
+                <!-- Container Starts -->
+                <div class="container">
+                    <!-- Main Heading Starts -->
+                    <div class="text-center top-text">
+                        <h1><span>Localização</span></h1>
+                    </div>
+                    <!-- Main Heading Starts -->
+                    <!-- Divider Starts -->
+                    <div class="divider text-center">
+                        <span class="outer-line"></span>
+                        <span class="fa fa-envelope" aria-hidden="true"></span>
+                        <span class="outer-line"></span>
+                    </div>
+                    <!-- Divider Ends -->
+                </div>
+                <!-- Container Ends -->
+            {% endif %}
+            
+            {% if lojista.endereco %}
+                <!-- Map Section Starts -->
+                <div class="info-map">
+                    <div class="google-map">
+                        <div class="gmap_container">
+                            <div id="-gmap_canvas"></div>
+                            <iframe width="100%" height="500"  src="https://maps.google.com/maps?q={{lojista.endereco}}%2C%20{{lojista.numero}}%2C%20{{lojista.cidade}}%20-%20{{lojista.estado}}&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <!-- Info Map Boxes Starts -->
+            {% endif %}
+
+            <div class="container">
+                <div class="row info-map-boxes">
+                    <!-- Left Info Map Box Starts -->
+                    <div class="col-md-6 col-sm-12">
+                        <div class="info-map-boxes-item fa fa-clock-o">
+                            <h1>Horário de atendimento</h1>
+                            <p> 
+                              {{lojista.horario_atendimento|linebreaks|default_if_none:""}}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Left Info Map Box Ends -->
+                    <!-- Right Info Map Box Starts -->
+                    <div class="col-md-6 col-sm-12">
+                        <div class="info-map-boxes-item fa fa-phone">
+                            <h1>Canais de atendimento</h1>
+                            <p>
+                                
+                                <a href="mailto:{{lojista.email_empresa}}">{{lojista.email_empresa}}</a>
+                                <br>
+
+                                {% if lojista.telefone_empresa %}
+                                    Telefone: <a href="tel:{{lojista.telefone_empresa}}">{{lojista.telefone_empresa}}</a>
+                                    <br>
+                                {% endif %}
+                                
+                                {% if redes.whatsapp %}
+                                    <a href="https://api.whatsapp.com/send?phone=55{{redes.whatsapp_int}}&amp;text=Olá" target="_blank"><span class="fa fa-whatsapp" aria-hidden="true"></span> {{redes.whatsapp}} </a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Right Info Map Box Ends -->
+                </div>
+            </div>
+            <!-- Info Map Boxes Ends -->
+        </section>
+        <!-- Contact Section Ends -->
+        <!-- Contact Form Section Starts -->
+        <section class="contactform">
+            <div class="section-overlay">
+                <div class="container">
+                    <!-- Main Heading Starts -->
+                    <div class="text-center top-text">
+                        <h1><span>{{lojista.label_contato}}</span></h1>
+                        
+                    </div>
+                    <!-- Main Heading Ends -->
+                    <div class="form-container">
+                        <!-- Contact Form Starts -->
+                        <form class="formcontact" method="post" action="{% url "core:contato" %}">
+                            {% csrf_token %}
+                            <input name="email_lojista" type="hidden" value="{{lojista.email}}">
+                            <input name="assunto" type="hidden" value="Contato via site">
+
+                            <div class="row form-inputs">
+                                <!-- First Name Field Starts -->
+                                <div class="col-md-6 form-group custom-form-group">
+                                    <span class="input custom-input">
+										<input placeholder="Nome" class="input-field custom-input-field" id="firstname" name="nome" type="text" required data-error="Campo obrigatório">
+										<label class="input-label custom-input-label" >
+											<i class="fa fa-user icon icon-field"></i>
+										</label>
+									</span>
+                                </div>
+                                <!-- First Name Field Ends -->
+                                <!-- Last Name Field Starts -->
+                                <div class="col-md-6 form-group custom-form-group">
+                                    <span class="input custom-input">
+										<input placeholder="Telefone" class="input-field custom-input-field telefone" id="lastname" name="telefone" type="text" required>
+										<label class="input-label custom-input-label" >
+											<i class="fa fa-user-o icon icon-field"></i>
+										</label>
+									</span>
+                                </div>
+                                <!-- Last Name Field Ends -->
+                                <!-- Message Field Starts -->
+                                <div class="form-group custom-form-group col-md-12">
+                                    <textarea placeholder="Mensagem" id="message" name="mensagem" cols="45" rows="7" required></textarea>
+                                </div>
+                                <!-- Message Field Ends -->
+                                <!-- Email Name Field Starts -->
+                                <div class="col-md-6 form-group custom-form-group">
+                                    <span class="input custom-input">
+										<input placeholder="Email" class="input-field custom-input-field" id="email" name="email" type="text" required>
+										<label class="input-label custom-input-label" >
+											<i class="fa fa-envelope icon icon-field"></i>
+										</label>
+									</span>
+                                </div>
+                                <!-- Email Name Field Ends -->
+                                <!-- Submit Button Starts -->
+                                <div class="col-md-6 submit-form">
+                                    <button id="form-submit" name="submit" type="submit" class="custom-button" title="Send">Enviar</button>
+                                </div>
+                                <!-- Submit Button Ends -->
+                                <!-- Form Submit Message Starts -->
+                                <div class="col-sm-12 text-center output_message_holder d-none">
+                                    <p class="output_message"></p>
+                                </div>
+                                <!-- Form Submit Message Ends -->
+                            </div>
+                        </form>
+                        <!-- Contact Form Ends -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Form Section Ends -->
+        <!-- Logos Section Starts -->
+
+        {% if parceiros %}
+            <section class="logos">
+				<div class="container">
+					<ul class="bxslider" id="bxslider">
+						<!-- Logos Items Starts -->
+                        {% for parceiro in parceiros %}
+						<li><img src="{{parceiro.imagem}}" alt=""></li>
+                        {% endfor %}
+						<!-- Logos Items Ends -->
+					</ul>
+				</div>
+			</section> 
+        {% endif %}
+
+        <!-- Logos Section Ends -->
+        <!-- Footer Section Starts -->
+        <footer class="footer text-center">
+            <!-- Container Starts -->
+            <div class="container">
+                <!-- Copyright Text Starts -->
+                <p>{{lojista.apelido}}</p>
+
+                <p>
+                    <a target="_blank" href="http://patossites.com.br">PatosSites <span class="heart">&#10084;</span> identiWeb</a>
+                </p>
+
+                <!-- Copyright Text Ends -->
+                <!-- Social Media Links Starts -->
+                <div class="social-icons">
+                    <ul class="social">
+                                    
+                        {% if redes.twitter %}
+                            <li> 
+                                <a class="twitter" href="https://twitter.com/{{redes.twitter}}" title="twitter" target="blank"></a>
+                            </li>
+                        {% endif %}
+
+                        {% if redes.facebook %}
+                            <li>
+                                <a class="facebook" href="https://www.facebook.com/{{redes.facebook}}" title="facebook" target="blank"></a>
+                            </li>
+                        {% endif %}
+
+                        {% if redes.skype %}
+                            <li>
+                                <a href="skype:{{redes.skype}}?call" class="skype" title="skype"></a>
+                            </li>
+                        {% endif %}
+
+                        {% if redes.instagram %}
+                            <li>
+                                <a class="instagram" href="https://www.instagram.com/{{redes.instagram}}" title="instagram" target="blank">  </a>
+                            </li>
+                        {% endif %}
+
+                        {% if redes.linkedin %}
+                            <li>
+                                <a class="linkedin" href="https://www.linkedin.com/in/{{redes.linkedin}}" title="linkedin" target="blank"></a>
+                            </li>
+                        {% endif %}
+
+                        {% if redes.youtube %}
+                            <li>
+                                <a class="youtube" href="https://www.youtube.com/{{redes.youtube}}" title="youtube" target="blank"></a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <!-- Social Media Links Ends -->
+            </div>
+            <!-- Container Ends -->
+        </footer>
+        <!-- Footer Section Starts -->
+        <!-- Back To Top Starts -->
+        <div id="back-top-wrapper" class="d-none d-sm-block">
+            <p id="back-top">
+                <a href="index.html#top"><span></span></a>
+            </p>
+        </div>
+        <!-- Back To Top Ends -->
+    </div>
+    <!-- Wrapper Ends -->
+
+    <!-- Template JS Files -->
+
+    <script type="text/javascript" src="{% static "front/js/jquery-2.2.4.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/jquery.easing.1.3.js" %}"></script>
+	
+    <script type="text/javascript" src="{% static "front/js/plugins/bootstrap.bundle.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/jquery.bxslider.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/jquery.filterizr.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/jquery.magnific-popup.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/jquery.singlePageNav.min.js" %}"></script>
+
+    <!-- Revolution Slider Main JS Files -->
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/jquery.themepunch.tools.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/jquery.themepunch.revolution.min.js" %}"></script>
+
+    <!-- Revolution Slider Extensions -->
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.actions.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.carousel.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.migration.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.navigation.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.parallax.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "front/js/plugins/revolution/js/extensions/revolution.extension.video.min.js" %}"></script>
+    <script src="{% static "js/jquery.mask.min.js" %}"></script>
+    <!-- Main JS Initialization File -->
+    <script type="text/javascript" src="{% static "front/js/custom.js" %}?s=8wssas2"></script>
+
+    <!-- Revolution Slider Initialization Starts -->
+  
+	 <!-- Revolution Slider Initialization Starts -->
+	<script type="text/javascript">
+			(function() {
+				"use strict";
+				var tpj = jQuery;
+				var revapi6;
+				tpj(document).ready(function() {
+                
+                {% if portfolios %}
+                    //FILTERABLE PORTFOLIO
+                    $(".simplefilter li").on("click", function() {
+                        $(".simplefilter li").removeClass("active");
+                        $(this).addClass("active");
+                    });
+                    var options = {
+                        animationDuration: 0.6,
+                        filter: "all",
+                        callbacks: {
+                            onFilteringStart: function() {},
+                            onFilteringEnd: function() {}
+                        },
+                        delay: 0,
+                        delayMode: "alternate",
+                        easing: "ease-out",
+                        layout: "sameSize",
+                        selector: ".filtr-container",
+                        setupControls: true
+                    }
+                    var filterizd = $(".filtr-container").filterizr(options);
+                    filterizd.filterizr("setOptions", options);
+                {% endif %}
+                    
+                    if (tpj("#rev_slider_6_1").revolution == undefined) {
+						revslider_showDoubleJqueryError("#rev_slider_6_1");
+					} else {
+						revapi6 = tpj("#rev_slider_6_1").show().revolution({
+							sliderType: "standard",
+							jsFileLocation: "../../revolution/js/",
+							sliderLayout: "fullscreen",
+							dottedOverlay: "none",
+							delay: 3000,
+							navigation: {
+								keyboardNavigation: "off",
+								keyboard_direction: "horizontal",
+								mouseScrollNavigation: "off",
+								onHoverStop: "off",
+								touch: {
+									touchenabled: "on",
+									swipe_threshold: 75,
+									swipe_min_touches: 1,
+									swipe_direction: "horizontal",
+									drag_block_vertical: false
+								},
+								bullets: {
+									enable: false,
+									hide_onmobile: false,
+									style: "hermes",
+									hide_onleave: false,
+									direction: "vertical",
+									h_align: "right",
+									v_align: "center",
+									h_offset: 30,
+									v_offset: 0,
+									space: 10,
+									tmp: ''
+								}
+							},
+							responsiveLevels: [1240, 1024, 778, 480],
+							gridwidth: [1024, 850, 778, 480],
+							gridheight: [600, 500, 450, 400],
+							lazyType: "none",
+							shadow: 0,
+							spinner: "off",
+							stopLoop: "off",
+							stopAfterLoops: -1,
+							stopAtSlide: -1,
+							shuffle: "off",
+							autoHeight: "off",
+							disableProgressBar: "on",
+							hideThumbsOnMobile: "off",
+							hideSliderAtLimit: 0,
+							hideCaptionAtLimit: 0,
+							hideAllCaptionAtLilmit: 0,
+							debugMode: false,
+							fallbacks: {
+								simplifyAll: "off",
+								nextSlideOnWindowFocus: "off",
+								disableFocusListener: false,
+							}
+						});
+					}
+				});
+			})(jQuery);
+		</script>
+    
+    {% if lojista.scripts_extras %}
+        {{lojista.scripts_extras|safe}}
+    {% endif %}
+</body>
+
+</html>

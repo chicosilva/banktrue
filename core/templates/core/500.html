@@ -1,0 +1,112 @@
+{% load thumbnail %}
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie ie8"> <![endif]-->
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="pt-br">
+<!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Erro no sistema.</title>
+    
+
+    {% compress css %}
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    {% endcompress %}
+    
+    {% compress js %}
+        <!--[if lt IE 9]>
+      <script src="{% static 'js/html5shiv.min.js' %}"></script>
+      <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+    {% endcompress %}
+
+    {% block css_extras %}{% endblock %}
+    {% block content %}
+    
+
+</head>
+
+<body>
+
+    <style>
+        #error-img-top{
+            margin-top: 20px;
+        }
+        #error-title{
+            font-size: 120px !important;
+            text-align: center;
+            margin: 0 !important;
+            padding: 0 !important;
+            color: #4d4d4d;
+            line-height: 110px;
+        }
+        #error-description{
+            color: #8a8a8a;
+            text-align: center;
+            font-size: 18px !important;
+            margin: 0 !important;
+        }
+        #error-back{
+            text-align: center;
+            margin: 20px 0 20px 0 !important;
+        }
+        #error-back-img{
+            display: inline !important;
+        }
+        #error-back-text{
+            color: #000000;
+            text-decoration: underline;
+            font-size: 16px !important;
+        }
+        #error-bottom{
+            text-align: center;
+        }
+        #error-link-bottom{
+            color: #000000;
+            font-size: 14px !important;
+            text-decoration: none;
+        }
+    </style>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12 text-center"><br><br><br>
+            <img src="{% static 'img/error.png' %}" alt="Erro">
+            <br><br><br><br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1 id="error-title">500</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 id="error-description">Ops, aconteceu algum erro ):</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p id="error-back">
+                <a href="javascript: history.go(-1)" id="error-back-text">Voltar para a página anterior</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

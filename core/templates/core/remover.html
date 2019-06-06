@@ -1,0 +1,24 @@
+<div class="modal-body">
+
+    <h4 class="text-center">Tem certeza?</h4>
+
+    <hr style="margin:20px 0">
+    <div class="form-group">
+        <form action="{{ url_remocao }}" method="post">
+
+            {% csrf_token %}
+
+            <div class="form-group text-center">
+                
+                <input type="button" value="Cancelar" class="btn btn-danger" data-dismiss="modal">
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-thumbs-up"></i> Sim
+                </button>
+            </div>
+
+        </form>
+    
+    </div>
+
+</div>
