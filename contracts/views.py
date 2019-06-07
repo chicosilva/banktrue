@@ -69,7 +69,7 @@ def detail(request, id):
         'amount_pay': amout_pay['amount__sum'],
         'installmets_pay': installmets_pay,
     }
-
+    
     data = {
         'contract': contract_serializer.data,
         'summary': summary,
