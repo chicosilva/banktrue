@@ -1,32 +1,33 @@
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-import jwt
-from django.conf import settings
 import copy
 from customers.models import Customer
 from core import get_client_ip
 from .service import create_installment, calc_interest
-from decimal import Decimal
 from contracts.models import Contract, Installment
 from django.db.models import Sum
+from customers.service import check_token
 
+
+def payment(request, id):
+
+    tax_id = check_token(request)
+
+    if not tax_id:
+        return Response({'message': 'invalid token'}, status=400)
+    
+    pass
 
 @api_view(http_method_names=['GET'])
 def detail(request, id):
 
-    token = request.GET.get('token')
-    tax_id = None
+    taxid = check_token(request)
 
-    try:
-
-        payload = result = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-        tax_id = payload.get('taxid')
-
-    except jwt.DecodeError:
+    if not taxid:
         return Response({'message': 'invalid token'}, status=400)
-
-    contract = Contract.objects.get(pk=id, customer__taxid=tax_id)
+    
+    contract = Contract.objects.get(pk=id, customer__taxid=taxid)
     installments = Installment.objects.filter(contract=id)
     
     contract_serializer = ConstractDetailsSerializer(contract)
@@ -67,25 +68,15 @@ def create(request):
     
     data = copy.copy(request.POST)
     
-    token = data.get('token')
-    tax_id = None
+    taxid = check_token(request)
 
-    try:
-
-        payload = result = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-        tax_id = payload.get('taxid')
-
-    except jwt.DecodeError:
+    if not taxid:
         return Response({'message': 'invalid token'}, status=400)
 
-    customer = Customer.objects.get(taxid=tax_id)
+    customer = Customer.objects.get(taxid=taxid)
     data['customer'] = customer.pk
     data['ip_address'] = get_client_ip(request)
-
-    amount = Decimal(data.get('amount'))
-    interest_rate = Decimal(data.get('interest_rate'))
-
-    data['amount_due'] = calc_interest(amount, interest_rate)
+    data['amount_due'] = calc_interest(data.get('amount'), data.get('interest_rate'))
 
     serializer = ConstractSerializer(data=data)
 

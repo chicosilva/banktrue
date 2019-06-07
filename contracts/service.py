@@ -1,12 +1,15 @@
 from .models import Installment
 import datetime
 from dateutil.relativedelta import relativedelta
-
+from decimal import Decimal
 
 def calc_interest(amount, interest_rate):
 
-    amount_due = (amount + (amount * interest_rate/ 100))
-    return amount_due
+        amount = Decimal(amount)
+        interest_rate = Decimal(interest_rate)
+
+        amount_due = (amount + (amount * interest_rate/ 100))
+        return amount_due
 
 
 def create_installment(contract):

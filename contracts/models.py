@@ -15,7 +15,7 @@ class Contract(ModelDefault):
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     amount_due = models.DecimalField(max_digits=15, decimal_places=2)
     interest_rate  = models.DecimalField(max_digits=15, decimal_places=2)
-    late_fee  = models.DecimalField(max_digits=15, decimal_places=2)
+    late_fee  = models.DecimalField(max_digits=15, decimal_places=2, default=5)
     installment_number = models.IntegerField()
     ip_address = models.GenericIPAddressField()
     bank = models.CharField(max_length=70)
@@ -49,5 +49,4 @@ class Installment(ModelDefault):
 
     def __str__(self):
         return self.contract.customer.name
-    
     
