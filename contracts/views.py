@@ -1,4 +1,4 @@
-from .serializers import ConstractSerializer
+from .serializers import ConstractSerializer, ConstractDetailsSerializer, InstallmentSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import jwt
@@ -8,6 +8,35 @@ from customers.models import Customer
 from core import get_client_ip
 from .service import create_installment, calc_interest
 from decimal import Decimal
+from contracts.models import Contract, Installment
+
+
+@api_view(http_method_names=['GET'])
+def detail(request, id):
+
+    token = request.GET.get('token')
+    tax_id = None
+
+    try:
+
+        payload = result = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        tax_id = payload.get('taxid')
+
+    except jwt.DecodeError:
+        return Response({'message': 'invalid token'}, status=400)
+
+    contract = Contract.objects.get(pk=id, customer__taxid=tax_id)
+    installments = Installment.objects.filter(contract=id)
+    
+    contract = ConstractDetailsSerializer(contract)
+    installments = InstallmentSerializer(installments, many=True)
+    
+    data = {
+        'contract': contract.data,
+        'installments': installments.data,
+    }
+
+    return Response(data)
 
 
 @api_view(http_method_names=['POST'])

@@ -21,4 +21,5 @@ def create_installment(contract):
         installment.contract = contract
         installment.due_date = due_date
         installment.amount = amount
+        installment.number = i+1
         installment.save()

@@ -40,6 +40,7 @@ class Installment(ModelDefault):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     payment_date = models.DateTimeField(null=True, blank=True)
     due_date = models.DateField()
+    number = models.IntegerField()
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     amount_due = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
 
