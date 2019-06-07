@@ -14,6 +14,7 @@ class InstallmentSerializer(serializers.ModelSerializer):
             'number',
             'amount',
             'amount_due',
+            'late_fee',
         ]
 
 

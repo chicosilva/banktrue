@@ -15,6 +15,7 @@ class Contract(ModelDefault):
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     amount_due = models.DecimalField(max_digits=15, decimal_places=2)
     interest_rate  = models.DecimalField(max_digits=15, decimal_places=2)
+    late_fee  = models.DecimalField(max_digits=15, decimal_places=2)
     installment_number = models.IntegerField()
     ip_address = models.GenericIPAddressField()
     bank = models.CharField(max_length=70)
@@ -43,10 +44,10 @@ class Installment(ModelDefault):
     number = models.IntegerField()
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     amount_due = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
-
+    late_fee  = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
     objects = QueryManager(canceled_at__isnull=True)
 
     def __str__(self):
-        return self.customer.name
+        return self.contract.customer.name
     
     
