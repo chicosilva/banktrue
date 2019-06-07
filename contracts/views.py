@@ -8,16 +8,32 @@ from .service import create_installment, calc_interest
 from contracts.models import Contract, Installment
 from django.db.models import Sum
 from customers.service import check_token
+import datetime
+from decimal import Decimal
 
 
-def payment(request, id):
+@api_view(http_method_names=['POST'])
+def payment(request):
 
     tax_id = check_token(request)
 
     if not tax_id:
         return Response({'message': 'invalid token'}, status=400)
     
-    pass
+    data = copy.copy(request.POST)
+
+    installment = Installment.objects.get(pk=data.get('id'), \
+        contract=data.get('contract_id'))
+
+    installment.payment_date = datetime.datetime.now()
+    installment.amount_due = Decimal(data.get('amount_due'))
+    installment.late_fee = Decimal(data.get('late_fee'))
+    installment.save()
+    
+    installment_serializer = InstallmentSerializer(installment)
+
+    return Response(installment_serializer.data)
+
 
 @api_view(http_method_names=['GET'])
 def detail(request, id):

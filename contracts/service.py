@@ -3,6 +3,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 
+
 def calc_interest(amount, interest_rate):
 
         amount = Decimal(amount)
