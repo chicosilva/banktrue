@@ -1,6 +1,4 @@
-from rest_framework import viewsets
-from customers.models import Customer
-from customers.serializers import CustomerSerializer
+from .serializers import CustomerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import jwt
@@ -21,7 +19,6 @@ def create(request):
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
 
-    print(serializer.validated_data)
     serializer.create(serializer.validated_data)
     
     return Response(serializer.data)

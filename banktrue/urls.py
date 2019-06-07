@@ -10,6 +10,7 @@ urlpatterns = [
     
     path(r'', include('core.urls', 'core')),
     path(r'customers/', include('customers.urls', 'customers')),
+    path(r'contracts/', include('contracts.urls', 'contracts')),
   
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \

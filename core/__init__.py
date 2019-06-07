@@ -12,6 +12,16 @@ from datetime import date
 from django.shortcuts import HttpResponse
 from bs4 import BeautifulSoup
 
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def clean_valor_moeda(valor):
     if not valor or valor == "":
         return 0

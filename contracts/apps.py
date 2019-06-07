@@ -2,4 +2,4 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class CategoriasConfig(AppConfig): name = 'categorias'
+class ContractsConfig(AppConfig): name = 'contracts'

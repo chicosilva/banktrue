@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'customers',
+    'contracts',
     'rest_framework',
     'django.contrib.humanize'
 ]
@@ -70,7 +71,6 @@ DATABASES = {
         'OPTIONS' : {"charset": "utf8mb4"},
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
