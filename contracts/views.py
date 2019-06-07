@@ -6,6 +6,8 @@ from django.conf import settings
 import copy
 from customers.models import Customer
 from core import get_client_ip
+from .service import create_installment, calc_interest
+from decimal import Decimal
 
 
 @api_view(http_method_names=['POST'])
@@ -17,6 +19,7 @@ def create(request):
     tax_id = None
 
     try:
+
         payload = result = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
         tax_id = payload.get('taxid')
 
@@ -26,13 +29,19 @@ def create(request):
     customer = Customer.objects.get(taxid=tax_id)
     data['customer'] = customer.pk
     data['ip_address'] = get_client_ip(request)
-    data['amount_due'] = 100
+
+    amount = Decimal(data.get('amount'))
+    interest_rate = Decimal(data.get('interest_rate'))
+
+    data['amount_due'] = calc_interest(amount, interest_rate)
 
     serializer = ConstractSerializer(data=data)
 
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
 
-    serializer.create(serializer.validated_data)
+    contract = serializer.create(serializer.validated_data)
     
+    create_installment(contract)
+
     return Response(serializer.data)
