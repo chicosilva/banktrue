@@ -108,12 +108,14 @@ def create(request):
     customer = Customer.objects.get(taxid=taxid)
     data['customer'] = customer.pk
     data['ip_address'] = get_client_ip(request)
-    data['amount_due'] = calc_interest(data.get('amount'), data.get('interest_rate'))
-
+    
     serializer = ConstractSerializer(data=data)
-
+    data['amount_due'] = 0
+    
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
+
+    data['amount_due'] = calc_interest(data.get('amount'), data.get('interest_rate'))
 
     contract = serializer.create(serializer.validated_data)
     
