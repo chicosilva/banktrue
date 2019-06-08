@@ -9,7 +9,7 @@ Install packages:  pip install -r requirements.txt
 Create user
 ================
 POST
-/customers/create/
+**/customers/create/**
 
 Params:
 
@@ -66,7 +66,7 @@ Detail contract
 ================
 
 GET
-contracts/<uuid>?token=<mytoken>
+contracts/<uuid>?token=mytoken
 
 response:
 
@@ -103,7 +103,7 @@ Constract list
 ================
 
 GET
-/contracts/user/?token=<mytoken>
+/contracts/user/?token=mytoken
 
 response:
 
