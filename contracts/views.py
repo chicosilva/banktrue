@@ -27,6 +27,23 @@ def user(request):
     return Response(serializer.data)
 
 
+@api_view(http_method_names=['GET'])
+def installments(request, contract_id):
+
+    taxid = check_token(request)
+
+    if not taxid:
+        return Response({'message': 'invalid token'}, status=400)
+    
+    customer = Customer.objects.get(taxid=taxid)
+    contract = Contract.objects.get(pk=contract_id, customer=customer)
+
+    installments = Installment.objects.filter(contract=contract_id)
+    serializer = InstallmentSerializer(installments, many=True)
+
+    return Response(serializer.data)
+
+
 @api_view(http_method_names=['POST'])
 def payment(request):
 

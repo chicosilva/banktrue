@@ -3,6 +3,8 @@ from django.conf.urls import url, include
 app_name = 'contracts'
 
 urlpatterns = [
+    
+    url(r'^installments/(?P<contract_id>[0-9a-z-]+)$', installments, name='installments'),
     url(r'^user/$', user, name='user'),
     url(r'^create/$', create, name='create'),
     url(r'^payment/$', payment, name='payment'),

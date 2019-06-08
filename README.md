@@ -20,7 +20,7 @@ taxid\
 city\
 cellphone
 
-Response:
+response example:
 
 ```javascript
 {
@@ -49,7 +49,7 @@ installment_number\
 bank\
 amount
 
-response:
+response example:
 
 ```javascript
 {
@@ -69,7 +69,7 @@ Contract Detail
 GET\
 **contracts/<uuid>?token=mytoken**
 
-response:
+response example:
 
 ```javascript
 {
@@ -106,7 +106,7 @@ Constract list
 GET\
 **/contracts/user/?token=mytoken**
 
-response:
+response example:
 
 ```javascript
 [
@@ -129,6 +129,37 @@ response:
 ]
 ```
 
+
+Installment
+================
+
+GET\
+**/contracts/installments/contract_id?token=mytoken**
+
+response example:
+
+```javascript
+[
+    {
+        "payment_date": null,
+        "due_date": "2019-10-07",
+        "number": 4,
+        "amount": "11.00",
+        "amount_due": null,
+        "late_fee": null
+    },
+    {
+        "payment_date": null,
+        "due_date": "2020-04-07",
+        "number": 10,
+        "amount": "11.00",
+        "amount_due": null,
+        "late_fee": null
+    },
+]
+```
+
+
 Pay
 ================
 
@@ -143,7 +174,7 @@ id\
 amount_due\
 late_fee
 
-response:
+response example:
 
 ```javascript
 {
