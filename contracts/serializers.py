@@ -36,6 +36,16 @@ class ConstractDetailsSerializer(serializers.ModelSerializer):
 
 class ConstractSerializer(serializers.ModelSerializer):
     
+    def validate_amount(self, data):
+        
+        """
+        Check that the start is before the stop.
+        """
+        #if not data.is_integer():
+        #    raise serializers.ValidationError("finish must occur after start")
+        
+        return data
+
     class Meta:
 
         model = Contract

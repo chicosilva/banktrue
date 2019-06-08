@@ -103,6 +103,8 @@ STATIC_ROOT = join(PUBLIC_ROOT, 'static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+MIN_AMOUNT = 5000
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 50

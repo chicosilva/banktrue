@@ -29,7 +29,7 @@ def user(request):
 
 @api_view(http_method_names=['GET'])
 def installments(request, contract_id):
-
+    
     taxid = check_token(request)
 
     if not taxid:

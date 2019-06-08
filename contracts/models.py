@@ -2,6 +2,7 @@ from django.db import models
 from core.models import ModelDefault
 from model_utils.managers import QueryManager
 from uuid import uuid4
+from .validators import min_amount
 
 
 class Contract(ModelDefault):
@@ -12,7 +13,7 @@ class Contract(ModelDefault):
 
     customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE)
     number = models.CharField(max_length=100, editable=False, unique=True)
-    amount = models.DecimalField(max_digits=15, decimal_places=2)
+    amount = models.DecimalField(max_digits=15, decimal_places=2, validators=[min_amount])
     amount_due = models.DecimalField(max_digits=15, decimal_places=2)
     interest_rate  = models.DecimalField(max_digits=15, decimal_places=2)
     late_fee  = models.DecimalField(max_digits=15, decimal_places=2, default=5)
