@@ -2,6 +2,22 @@ from rest_framework import serializers
 from .models import Contract, Installment
 
 
+class InstallmentPaySerializer(serializers.ModelSerializer):
+    
+    id = serializers.UUIDField()
+
+    class Meta:
+
+        model = Installment
+
+        fields = [
+            'id',
+            'contract_id',
+            'amount_due',
+            'late_fee',
+        ]
+
+
 class InstallmentSerializer(serializers.ModelSerializer):
     
     class Meta:

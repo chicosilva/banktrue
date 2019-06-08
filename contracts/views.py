@@ -34,9 +34,16 @@ def installments(request, contract_id):
     if not taxid:
         return Response({'message': 'invalid token'}, status=400)
     
-    customer = Customer.objects.get(taxid=taxid)
-    contract = Contract.objects.get(pk=contract_id, customer=customer)
+    try:
+        customer = Customer.objects.get(taxid=taxid)
+    except:
+        return Response({'message': "Customer not found"}, status=400)
 
+    try:
+        contract = Contract.objects.get(pk=contract_id, customer=customer)
+    except:
+        return Response({'message': "Contract not found"}, status=400)
+    
     installments = Installment.objects.filter(contract=contract_id)
     serializer = InstallmentSerializer(installments, many=True)
 
@@ -53,25 +60,27 @@ def payment(request):
     
     data = copy.copy(request.POST)
 
+    serializer = InstallmentPaySerializer(data=data)
+    
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+
     contract_id = data.get('contract_id')
 
-    contract = Contract.objects.get(pk=contract_id, customer__taxid=taxid)
-
+    try:
+        contract = Contract.objects.get(pk=contract_id, customer__taxid=taxid)
+    except:
+        return Response({'message': "Contract not found"}, status=400)
+    
     installment = Installment.objects.get(pk=data.get('id'), \
          contract=contract)
 
-    today = datetime.date.today()
-    
-    late_fee = contract.late_fee if today > installment.due_date else None
+    if installment.payment_date:
+        return Response({'message': "Installment already pay"}, status=400)
 
-    amount_due = installment.amount
-
-    if late_fee:
-        amount_due = (amount_due + (amount_due * late_fee/ 100))
-    
     installment.payment_date = datetime.datetime.now()
-    installment.amount_due = amount_due
-    installment.late_fee = late_fee
+    installment.amount_due = Decimal(data.get('amount_due'))
+    installment.late_fee = Decimal(data.get('late_fee'))
     installment.save()
     
     installment_serializer = InstallmentSerializer(installment)
@@ -87,7 +96,13 @@ def detail(request, id):
     if not taxid:
         return Response({'message': 'invalid token'}, status=400)
     
-    contract = Contract.objects.get(pk=id, customer__taxid=taxid)
+    from django.core.exceptions import ValidationError
+    
+    try:
+        contract = Contract.objects.get(pk=id, customer__taxid=taxid)
+    except:
+        return Response({'message': "Contract not found"}, status=400)
+
     installments = Installment.objects.filter(contract=id)
     
     contract_serializer = ConstractDetailsSerializer(contract)
@@ -116,7 +131,6 @@ def create(request):
     if not taxid:
         return Response({'message': 'invalid token'}, status=400)
 
-    
     data = copy.copy(request.POST)
 
     customer = Customer.objects.get(taxid=taxid)
