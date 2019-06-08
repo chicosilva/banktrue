@@ -8,7 +8,7 @@ Install packages:  pip install -r requirements.txt
 
 Create user
 ================
-POST
+POST\
 **/customers/create/**
 
 Params:
@@ -37,8 +37,8 @@ Obs: Token will be used to authenticated
 Create contract
 ================
 
-POST
-/contract/create/
+POST\
+**/contract/create/**
 
 Params:
 
@@ -65,8 +65,8 @@ response:
 Detail contract
 ================
 
-GET
-contracts/<uuid>?token=mytoken
+GET\
+**contracts/<uuid>?token=mytoken**
 
 response:
 
@@ -102,8 +102,8 @@ response:
 Constract list
 ================
 
-GET
-/contracts/user/?token=mytoken
+GET\
+**/contracts/user/?token=mytoken**
 
 response:
 
@@ -131,8 +131,8 @@ response:
 Pay
 ================
 
-POST
-/contracts/payment/
+POST\
+**/contracts/payment/**
 
 Params
 
