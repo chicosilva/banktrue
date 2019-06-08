@@ -6,8 +6,9 @@ Python 3.7.3
 Install packages:  pip install -r requirements.txt
 
 
-Create user
+Create User
 ================
+
 POST\
 **/customers/create/**
 
@@ -34,7 +35,7 @@ Response:
 
 Obs: Token will be used to authenticated
 
-Create contract
+Create Contract
 ================
 
 POST\
@@ -62,7 +63,7 @@ response:
 }
 ```
 
-Detail contract
+Contract Detail
 ================
 
 GET\
