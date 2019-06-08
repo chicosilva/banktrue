@@ -168,11 +168,11 @@ POST\
 
 Params
 
-token\
-contract_id\
-id\
-amount_due\
-late_fee
+token: string\
+contract_id: string\
+id: string\
+amount_due: integer\
+late_fee: integer
 
 response example:
 
