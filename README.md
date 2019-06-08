@@ -14,11 +14,11 @@ POST\
 
 Params:
 
-name\
-email\
-taxid\
-city\
-cellphone
+name: string \
+email: string \
+taxid: string\
+city: string\
+cellphone: string
 
 response example:
 
