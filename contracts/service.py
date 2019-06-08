@@ -19,11 +19,11 @@ def create_installment(contract):
 
     for i in range(0, contract.installment_number):
 
-        due_date = data_vencimento = datetime.date.today() + relativedelta(months=i+1)
+        due_date = datetime.date.today() + relativedelta(months=i+1)
 
         installment = Installment()
         installment.contract = contract
         installment.due_date = due_date
         installment.amount = amount
-        installment.number = i+1
+        installment.number = i + 1
         installment.save()

@@ -8,7 +8,7 @@ Install packages:  pip install -r requirements.txt
 
 Create user
 ================
-
+POST
 /customers/create/
 
 Params:
@@ -25,13 +25,12 @@ Response:
     "name": "Alonso de Assis",
     "email": "alonsobeta@gmail.com",
     "taxid": "00224555",
-    "cellphone": "34991073655",
+    "cellphone": "34991070000",
     "city": "Patos de mina",
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0YXhpZCI6IjAxNTI5MTY0NjY1In0.rARotlt3_I8b5mARau9-FIetMVLtZ0uL-vsGezsu3sg"
 }
 
-Token will be used to authenticated
-
+Obs: Token will be used to authenticated
 
 Create contract
 ================
@@ -94,12 +93,40 @@ response:
     ]
 }
 
+Constract list
+================
+
+GET
+/contracts/user/?token=<mytoken>
+response:
+
+[
+    {
+        "customer": "9ed42336-eb96-4dc4-aafe-ced36286b4b5",
+        "amount": "100.00",
+        "amount_due": "110.00",
+        "interest_rate": "10.00",
+        "installment_number": 10,
+        "bank": "Brasil"
+    },
+    {
+        "customer": "9ed42336-eb96-4dc4-aafe-ced36286b4b5",
+        "amount": "100.00",
+        "amount_due": "110.00",
+        "interest_rate": "10.00",
+        "installment_number": 10,
+        "bank": "Brasil"
+    }
+]
+
 
 Pay
 ================
 
 POST
 /contracts/payment/
+
+Params
 
 token
 contract_id

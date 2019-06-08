@@ -12,12 +12,27 @@ import datetime
 from decimal import Decimal
 
 
+@api_view(http_method_names=['GET'])
+def user(request):
+
+    taxid = check_token(request)
+
+    if not taxid:
+        return Response({'message': 'invalid token'}, status=400)
+    
+    customer = Customer.objects.get(taxid=taxid)
+    contracts = Contract.objects.filter(customer=customer)
+    serializer = ConstractDetailsSerializer(contracts, many=True)
+
+    return Response(serializer.data)
+
+
 @api_view(http_method_names=['POST'])
 def payment(request):
 
-    tax_id = check_token(request)
+    taxid = check_token(request)
 
-    if not tax_id:
+    if not taxid:
         return Response({'message': 'invalid token'}, status=400)
     
     data = copy.copy(request.POST)
