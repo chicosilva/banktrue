@@ -2,7 +2,39 @@ from .models import Installment
 import datetime
 from dateutil.relativedelta import relativedelta
 from decimal import Decimal
+from django.db.models import Sum
 
+
+def amount_pay(contract):
+
+        amout_pay = Installment.objects.\
+                filter(contract=contract).\
+                filter(payment_date__isnull=False).\
+                aggregate(Sum('amount'))
+
+        if not amout_pay['amount__sum']:
+                return 0
+
+        return amout_pay['amount__sum']
+
+
+def installmets_pay(contract):
+
+        installmets_pay = Installment.objects.\
+                filter(contract=contract).\
+                filter(payment_date__isnull=False).\
+                count()
+
+        return installmets_pay
+
+def debits(contract):
+
+        debits = Installment.objects.\
+                filter(contract=contract).\
+                filter(payment_date__isnull=True).\
+                aggregate(Sum('amount'))
+
+        return debits['amount__sum']
 
 def calc_interest(amount, interest_rate):
 

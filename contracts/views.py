@@ -4,9 +4,8 @@ from rest_framework.response import Response
 import copy
 from customers.models import Customer
 from core import get_client_ip
-from .service import create_installment, calc_interest
+from .service import *
 from contracts.models import Contract, Installment
-from django.db.models import Sum
 from customers.service import check_token
 import datetime
 from decimal import Decimal
@@ -29,7 +28,7 @@ def user(request):
 
 @api_view(http_method_names=['GET'])
 def installments(request, contract_id):
-    
+
     taxid = check_token(request)
 
     if not taxid:
@@ -81,25 +80,10 @@ def detail(request, id):
     contract_serializer = ConstractDetailsSerializer(contract)
     installments = InstallmentSerializer(installments, many=True)
     
-    debits = Installment.objects.\
-                filter(contract=contract).\
-                filter(payment_date__isnull=True).\
-                aggregate(Sum('amount'))
-    
-    amout_pay = Installment.objects.\
-                filter(contract=contract).\
-                filter(payment_date__isnull=False).\
-                aggregate(Sum('amount'))
-    
-    installmets_pay = Installment.objects.\
-                filter(contract=contract).\
-                filter(payment_date__isnull=False).\
-                count()
-    
     summary = {
-        'amount_due': debits['amount__sum'],
-        'amount_pay': amout_pay['amount__sum'],
-        'installmets_pay': installmets_pay,
+        'amount_due': debits(contract),
+        'amount_pay': amount_pay(contract),
+        'installmets_pay': installmets_pay(contract),
     }
     
     data = {
