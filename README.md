@@ -43,11 +43,11 @@ POST\
 
 Params:
 
-token\
-interest_rate\
-installment_number\
-bank\
-amount
+token: string\
+interest_rate: integer\
+installment_number: integer\
+bank: string\
+amount: string
 
 response example:
 
