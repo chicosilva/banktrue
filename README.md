@@ -14,9 +14,9 @@ POST
 Params:
 
 name\
-email
-taxid
-city
+email\
+taxid\
+city\
 cellphone
 
 Response:
@@ -42,10 +42,10 @@ POST
 
 Params:
 
-token
-interest_rate
-installment_number
-bank
+token\
+interest_rate\
+installment_number\
+bank\
 amount
 
 response:
@@ -104,6 +104,7 @@ Constract list
 
 GET
 /contracts/user/?token=<mytoken>
+
 response:
 
 ```javascript
@@ -135,13 +136,11 @@ POST
 
 Params
 
-
-token
-contract_id
-id
-amount_due
+token\
+contract_id\
+id\
+amount_due\
 late_fee
-
 
 response:
 
