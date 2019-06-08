@@ -53,12 +53,25 @@ def payment(request):
     
     data = copy.copy(request.POST)
 
-    installment = Installment.objects.get(pk=data.get('id'), \
-        contract=data.get('contract_id'))
+    contract_id = data.get('contract_id')
 
+    contract = Contract.objects.get(pk=contract_id, customer__taxid=taxid)
+
+    installment = Installment.objects.get(pk=data.get('id'), \
+         contract=contract)
+
+    today = datetime.date.today()
+    
+    late_fee = contract.late_fee if today > installment.due_date else None
+
+    amount_due = installment.amount
+
+    if late_fee:
+        amount_due = (amount_due + (amount_due * late_fee/ 100))
+    
     installment.payment_date = datetime.datetime.now()
-    installment.amount_due = Decimal(data.get('amount_due'))
-    installment.late_fee = Decimal(data.get('late_fee'))
+    installment.amount_due = amount_due
+    installment.late_fee = late_fee
     installment.save()
     
     installment_serializer = InstallmentSerializer(installment)
@@ -98,12 +111,13 @@ def detail(request, id):
 @api_view(http_method_names=['POST'])
 def create(request):
     
-    data = copy.copy(request.POST)
-    
     taxid = check_token(request)
 
     if not taxid:
         return Response({'message': 'invalid token'}, status=400)
+
+    
+    data = copy.copy(request.POST)
 
     customer = Customer.objects.get(taxid=taxid)
     data['customer'] = customer.pk
@@ -111,7 +125,7 @@ def create(request):
     
     serializer = ConstractSerializer(data=data)
     data['amount_due'] = 0
-    
+
     if not serializer.is_valid():
         return Response(serializer.errors, status=400)
 
