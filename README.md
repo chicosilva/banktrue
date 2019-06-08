@@ -137,6 +137,7 @@ late_fee
 
 response:
 
+```javascript
 {
     "payment_date": "2019-06-07T14:29:15.908768",
     "due_date": "2019-11-07",
@@ -145,3 +146,4 @@ response:
     "amount_due": "11.00",
     "late_fee": "5.00"
 }
+```
