@@ -13,7 +13,7 @@ POST
 
 Params:
 
-name
+name\
 email
 taxid
 city
@@ -21,6 +21,7 @@ cellphone
 
 Response:
 
+```javascript
 {
     "name": "Alonso de Assis",
     "email": "alonsobeta@gmail.com",
@@ -29,6 +30,7 @@ Response:
     "city": "Patos de mina",
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0YXhpZCI6IjAxNTI5MTY0NjY1In0.rARotlt3_I8b5mARau9-FIetMVLtZ0uL-vsGezsu3sg"
 }
+```
 
 Obs: Token will be used to authenticated
 
@@ -48,6 +50,7 @@ amount
 
 response:
 
+```javascript
 {
     "customer": "9ed42336-eb96-4dc4-aafe-ced36286b4b5",
     "amount": "100.00",
@@ -57,6 +60,7 @@ response:
     "ip_address": "127.0.0.1",
     "bank": "Brasil"
 }
+```
 
 Detail contract
 ================
@@ -66,6 +70,7 @@ contracts/<uuid>?token=<mytoken>
 
 response:
 
+```javascript
 {
     "contract": {
         "customer": "9ed42336-eb96-4dc4-aafe-ced36286b4b5",
@@ -88,10 +93,11 @@ response:
             "amount": "11.00",
             "amount_due": "11.00",
             "late_fee": "5.00"
-        }...
+        }
     
     ]
 }
+```
 
 Constract list
 ================
@@ -100,6 +106,7 @@ GET
 /contracts/user/?token=<mytoken>
 response:
 
+```javascript
 [
     {
         "customer": "9ed42336-eb96-4dc4-aafe-ced36286b4b5",
@@ -118,7 +125,7 @@ response:
         "bank": "Brasil"
     }
 ]
-
+```
 
 Pay
 ================
@@ -127,6 +134,7 @@ POST
 /contracts/payment/
 
 Params
+
 
 token
 contract_id
